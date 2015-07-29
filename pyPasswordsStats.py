@@ -9,10 +9,12 @@
 """
 
 import argparse
-from Login import Login
-import os
 import collections
+import os
+import sys
 
+from application.Login import Login
+import presentation.Message as Message
 
 def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
     for line in f:
@@ -41,7 +43,7 @@ def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
             __inc_dict(len_dict, len_pwd)
         
         else: 
-            print("[!] {0} Wrong line format.".format(line.strip()))
+            Message.print_error("{0} Wrong line format.".format(line.strip()))
 
     return total_logins
 
@@ -61,7 +63,6 @@ def __print_stats(total):
     TODO: Comment this.
     """
 
-    # Simplify the code below
     very_weak = type_array[0]
     weak = type_array[1]
     medium = type_array[2]
@@ -70,11 +71,6 @@ def __print_stats(total):
         vweak_percent = (very_weak * 100)/total
         weak_percent =  (weak * 100)/total
         medium_percent = (medium * 100)/total
-    else:
-        vweak_percent = 0
-        weak_percent = 0
-        medium_percent = 0
-
 
     print()
     print("SUMMARY ----------------------------------------------------")
@@ -95,7 +91,7 @@ def __print_stats(total):
     
 def __printTop10():
     """
-    Displays Top 10 most used passwords
+    Displays Top 10 most used passwords.
     """
 
     if(len(pwd_dict) > 0):
@@ -109,7 +105,7 @@ def __printTop10():
 
 def __printMostCommonLen():
     """
-    Displays most common length usage
+    Displays most common length usage.
     """
 
     if(len(len_dict) > 0):
@@ -120,18 +116,28 @@ def __printMostCommonLen():
         print("Most length usage: {0} chars ({1} times)".format(mclu_tuple[0],
                                                               mclu_tuple[1]))
 
-if __name__ == '__main__':
+def __check_python_version():
+    """
+    Checks Python version.
+    """
+    
+    major, minor, micro, releaselevel, serial = sys.version_info
+    if (major, minor) < (3, 0):
+        Message.print_error("Requires Python 3")
+        exit(1)
+    
+if __name__ == "__main__":
 
     # Parse input arguments
-    parser = argparse.ArgumentParser(prog='pyDictStats')
-    parser = argparse.ArgumentParser(description='Analyzes a' +
-                                     ' plain text dictionary file')
-    parser.add_argument('target', help='plain text dictionary file')
-    parser.add_argument('-q','--quiet', dest='quiet',
-                        action='store_true', help='quiet mode')
-    parser.add_argument('-s', '--separator', dest='separator',
-                        help='character that separates the accounts from ' \
-                        'the passwords. (Default :')
+    parser = argparse.ArgumentParser(prog="pyDictStats")
+    parser = argparse.ArgumentParser(description="Analyzes a " +
+                                     "plain text dictionary file")
+    parser.add_argument("target", help="plain text dictionary file")
+    parser.add_argument("-q","--quiet", dest="quiet",
+                        action="store_true", help="quiet mode")
+    parser.add_argument("-s", "--separator", dest="separator",
+                        help="character that separates the accounts from " \
+                        "the passwords. (Default :)")
     args = parser.parse_args()
 
     target = args.target
@@ -142,6 +148,8 @@ if __name__ == '__main__':
     else:
         separator = ":"
 
+    __check_python_version()
+    
     # Array for store the count of passwords types
     # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2)
     total_pass = 0
@@ -157,4 +165,11 @@ if __name__ == '__main__':
                                 len_dict)
         f.close()
 
-    __print_stats(total_pass)
+        __print_stats(total_pass)
+    else:
+        if(not os.path.exists(target)):
+            Message.print_error("{0} does not exists.".format(target))
+            exit(1)
+        if(not os.path.isfile(target)):
+            Message.print_error("{0} is a directory.".format(target))
+            exit(1)

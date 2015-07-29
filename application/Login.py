@@ -7,7 +7,8 @@
 @license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 @file:      Login.py
 """
-from Tag import Tag
+
+from presentation.Tag import Tag
 
 class Login:
 
