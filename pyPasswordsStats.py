@@ -13,8 +13,8 @@ import collections
 import os
 import sys
 
-from application.Login import Login
-import presentation.Message as Message
+from domain.Login import Login
+import crosscutting.Message as Message
 
 def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
     for line in f:

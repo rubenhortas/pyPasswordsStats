@@ -8,7 +8,7 @@
 @file:      Message.py
 """
 
-from .Tag import Tag
+from presentation.Tag import Tag
 
 def print_error(err_msg):
     print("{0} {1}".format(Tag.error,err_msg))
