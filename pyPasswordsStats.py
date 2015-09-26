@@ -13,8 +13,9 @@ import collections
 import os
 import sys
 
-from domain.Login import Login
 import crosscutting.Message as Message
+from domain.Login import Login
+
 
 def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
     for line in f:
@@ -22,7 +23,7 @@ def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
 
         if(len(info) == 2):
             total_logins = total_logins + 1
-            
+
             account = info[0].strip().lower()
             password = info[1].strip()
 
@@ -32,17 +33,17 @@ def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
 
             # Inc Counters
             sec = login.psec
-            if sec < 3: # not an strong password
+            if sec < 3:  # not an strong password
                 type_array[sec] = type_array[sec] + 1
-    
+
             # Password usage
             __inc_dict(pwd_dict, login.pwd)
-    
+
             # Length usage
             len_pwd = len(login.pwd)
             __inc_dict(len_dict, len_pwd)
-        
-        else: 
+
+        else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
 
     return total_logins
@@ -57,7 +58,7 @@ def __inc_dict(d, key):
         d[key] = int(val_k) + 1
     else:
         d[key] = 1
-        
+
 def __print_stats(total):
     """
     TODO: Comment this.
@@ -68,9 +69,9 @@ def __print_stats(total):
     medium = type_array[2]
 
     if total > 0:
-        vweak_percent = (very_weak * 100)/total
-        weak_percent =  (weak * 100)/total
-        medium_percent = (medium * 100)/total
+        vweak_percent = (very_weak * 100) / total
+        weak_percent = (weak * 100) / total
+        medium_percent = (medium * 100) / total
 
     print()
     print("SUMMARY ----------------------------------------------------")
@@ -80,7 +81,7 @@ def __print_stats(total):
         print ("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
                                                     vweak_percent))
         print("Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
-        print("Medium passwords: {0} ({1:0.2f}%)".format(medium, 
+        print("Medium passwords: {0} ({1:0.2f}%)".format(medium,
                                                          medium_percent))
         print()
         __printTop10()
@@ -88,7 +89,7 @@ def __print_stats(total):
         __printMostCommonLen()
     print()
     print("------------------------------------------------------------")
-    
+
 def __printTop10():
     """
     Displays Top 10 most used passwords.
@@ -120,12 +121,12 @@ def __check_python_version():
     """
     Checks Python version.
     """
-    
+
     major, minor, micro, releaselevel, serial = sys.version_info
     if (major, minor) < (3, 0):
         Message.print_error("Requires Python 3")
         exit(1)
-    
+
 if __name__ == "__main__":
 
     # Parse input arguments
@@ -133,7 +134,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyzes a " +
                                      "plain text dictionary file")
     parser.add_argument("target", help="plain text dictionary file")
-    parser.add_argument("-q","--quiet", dest="quiet",
+    parser.add_argument("-q", "--quiet", dest="quiet",
                         action="store_true", help="quiet mode")
     parser.add_argument("-s", "--separator", dest="separator",
                         help="character that separates the accounts from " \
@@ -142,14 +143,14 @@ if __name__ == "__main__":
 
     target = args.target
     quiet_mode = args.quiet
-    
+
     if(args.separator):
         separator = args.separator
     else:
         separator = ":"
 
     __check_python_version()
-    
+
     # Array for store the count of passwords types
     # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2)
     total_pass = 0
@@ -159,10 +160,9 @@ if __name__ == "__main__":
 
     # TODO: FIX THIS: Add an else
     if os.path.exists(target) and os.path.isfile(target):
-        f = open(target, "r")
+        f = open(target, "r", encoding="utf-8", errors="ignore")
         print("Analysing: {0}".format(target))
-        total_pass = __parse_file(f, total_pass, type_array, pwd_dict,
-                                len_dict)
+        total_pass = __parse_file(f, total_pass, type_array, pwd_dict, len_dict)
         f.close()
 
         __print_stats(total_pass)
