@@ -27,22 +27,26 @@ def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
             account = info[0].strip().lower()
             password = info[1].strip()
 
-            login = Login(account, password)
-            if not quiet_mode:
-                login.Print_info()
+            if(password != ""):
+                login = Login(account, password)
+                if not quiet_mode:
+                    login.Print_info()
 
-            # Inc Counters
-            sec = login.psec
-            if sec < 3:  # not an strong password
-                type_array[sec] = type_array[sec] + 1
+                # Inc Counters
+                sec = login.psec
+                if sec < 3:  # not an strong password
+                    type_array[sec] = type_array[sec] + 1
 
-            # Password usage
-            __inc_dict(pwd_dict, login.pwd)
+                # Password usage
+                __inc_dict(pwd_dict, login.pwd)
 
-            # Length usage
-            len_pwd = len(login.pwd)
-            __inc_dict(len_dict, len_pwd)
+                # Length usage
+                len_pwd = len(login.pwd)
+                __inc_dict(len_dict, len_pwd)
 
+            else:
+                type_array[3] = type_array[3] + 1
+                __inc_dict(len_dict, 0)
         else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
 
@@ -67,8 +71,10 @@ def __print_stats(total):
     very_weak = type_array[0]
     weak = type_array[1]
     medium = type_array[2]
+    blank = type_array[3]
 
     if total > 0:
+        blank_percent = (blank * 100) / total
         vweak_percent = (very_weak * 100) / total
         weak_percent = (weak * 100) / total
         medium_percent = (medium * 100) / total
@@ -77,8 +83,10 @@ def __print_stats(total):
     print("SUMMARY ----------------------------------------------------")
     print()
     print ("Total passwords: {0}".format(total))
+    print()
     if(total > 0):
-        print ("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
+        print("Blank passwords: {0} ({1:0.2f}%)".format(blank, blank_percent))
+        print("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
                                                     vweak_percent))
         print("Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
         print("Medium passwords: {0} ({1:0.2f}%)".format(medium,
@@ -152,9 +160,9 @@ if __name__ == "__main__":
     __check_python_version()
 
     # Array for store the count of passwords types
-    # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2)
+    # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2), Blank (pos 3)
     total_pass = 0
-    type_array = [0, 0, 0]
+    type_array = [0, 0, 0, 0]
     pwd_dict = {}
     len_dict = {}
 
