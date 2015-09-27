@@ -13,6 +13,7 @@ import collections
 import os
 import sys
 
+from application.utils import PythonUtils
 import crosscutting.Message as Message
 from domain.Login import Login
 
@@ -125,16 +126,6 @@ def __printMostCommonLen():
         print("Most length usage: {0} chars ({1} times)".format(mclu_tuple[0],
                                                               mclu_tuple[1]))
 
-def __check_python_version():
-    """
-    Checks Python version.
-    """
-
-    major, minor, micro, releaselevel, serial = sys.version_info
-    if (major, minor) < (3, 0):
-        Message.print_error("Requires Python 3")
-        exit(1)
-
 if __name__ == "__main__":
 
     # Parse input arguments
@@ -157,7 +148,7 @@ if __name__ == "__main__":
     else:
         separator = ":"
 
-    __check_python_version()
+    PythonUtils.check_python_version()
 
     # Array for store the count of passwords types
     # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2), Blank (pos 3)
