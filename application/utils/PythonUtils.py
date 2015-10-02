@@ -9,7 +9,7 @@
 @file:    PythonUtils.py
 """
 
-import sys
+from sys import version_info
 from crosscutting import Message
 
 def check_python_version():
@@ -19,7 +19,6 @@ def check_python_version():
 
     required_version = 3
 
-    major, minor, micro, releaselevel, serial = sys.version_info
-    if (major, minor) < (required_version, 0):
+    if version_info < (3, 0):
         Message.print_error("Requires Python {0}".format(required_version))
         exit(1)
