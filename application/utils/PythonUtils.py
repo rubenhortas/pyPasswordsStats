@@ -12,13 +12,28 @@
 from sys import version_info
 from crosscutting import Message
 
-def check_python_version():
+def check_python_version(python_required_version):
     """
     Checks Python version.
     """
 
-    required_version = 3
+    major, minor, micro, releaselevel, serial = version_info
+    if major != python_required_version:
+        Message.print_error("Requires Python {0}".format(python_required_version))
+        exit(0)
 
-    if version_info < (3, 0):
-        Message.print_error("Requires Python {0}".format(required_version))
-        exit(1)
+
+def exit_signal_handler(signal, frame):
+    """"
+    exit_signal_handler(signal, frame)
+        Hadles an exit signal.
+    Arguments:
+        - signal: (int) number of signal.
+        - frame: (string) name of the signal handler.
+
+    * Subscribe importing "signal" library and adding:
+        signal.signal(signal.SIGINT, exit_signal_handler)
+    in the application main file.
+    """
+
+    exit(0)

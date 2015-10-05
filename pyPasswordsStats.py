@@ -11,9 +11,12 @@
 import argparse
 import collections
 import os
+import signal
 import sys
 
 from application.utils import PythonUtils
+from application.utils.PythonUtils import check_python_version
+from application.utils.PythonUtils import exit_signal_handler
 import crosscutting.Message as Message
 from domain.Login import Login
 
@@ -66,7 +69,10 @@ def __inc_dict(d, key):
 
 def __print_stats(total):
     """
-    TODO: Comment this.
+    __print_stats(total)
+        Prints the results of the statistical analysis.
+    Arguments:
+        - total: (int) total of parsed lines.
     """
 
     very_weak = type_array[0]
@@ -128,6 +134,12 @@ def __printMostCommonLen():
 
 if __name__ == "__main__":
 
+    required_python_version = 3
+
+    check_python_version(required_python_version)
+
+    signal.signal(signal.SIGINT, exit_signal_handler)
+
     # Parse input arguments
     parser = argparse.ArgumentParser(prog="pyDictStats")
     parser = argparse.ArgumentParser(description="Analyzes a " +
@@ -148,8 +160,6 @@ if __name__ == "__main__":
     else:
         separator = ":"
 
-    PythonUtils.check_python_version()
-
     # Array for store the count of passwords types
     # [Very_weak (pos 0), Weak (pos 1), Medium (pos 2), Blank (pos 3)
     total_pass = 0
@@ -157,7 +167,6 @@ if __name__ == "__main__":
     pwd_dict = {}
     len_dict = {}
 
-    # TODO: FIX THIS: Add an else
     if os.path.exists(target) and os.path.isfile(target):
         f = open(target, "r", encoding="utf-8", errors="ignore")
         print("Analysing: {0}".format(target))

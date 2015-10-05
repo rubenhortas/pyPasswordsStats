@@ -19,9 +19,11 @@ class Tag:
     Defines the tags for each message shown in the output.
     """
 
-    strong = "{0}{1}strong{2}{3} ".format("[",Color.green,Color.end,"]")
-    medium = "{0}{1}medium{2}{3} ".format("[",Color.yellow,Color.end,"]")
-    weak = "{0}{1}weak{2}{3} ".format("[",Color.red,Color.end,"]")
-    very_weak = "{0}{1}v weak{2}{3} ".format("[",Color.bold_red,Color.end,"]")
-        
-    error = "{0}{1}!{2}{3}".format("[",Color.bold_red,Color.end,"]")
+    info = "[" + Color.green + "*" + Color.end + "]"
+    error = "{0}{1}!{2}{3}".format("[", Color.bold_red, Color.end, "]")
+
+    strong = "{0}{1}strong{2}{3} ".format("[", Color.green, Color.end, "]")
+    medium = "{0}{1}medium{2}{3} ".format("[", Color.yellow, Color.end, "]")
+    weak = "{0}{1}weak{2}{3} ".format("[", Color.red, Color.end, "]")
+    very_weak = "{0}{1}v weak{2}{3} ".format("[", Color.bold_red, Color.end, "]")
+
