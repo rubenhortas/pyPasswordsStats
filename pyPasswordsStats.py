@@ -56,6 +56,7 @@ def __parse_file(f, total_logins, type_array, pwd_dict, len_dict):
 
     return total_logins
 
+
 def __inc_dict(d, key):
     """
     Increase the value of a key in a dictionary.
@@ -66,6 +67,7 @@ def __inc_dict(d, key):
         d[key] = int(val_k) + 1
     else:
         d[key] = 1
+
 
 def __print_stats(total):
     """
@@ -94,7 +96,7 @@ def __print_stats(total):
     if(total > 0):
         print("Blank passwords: {0} ({1:0.2f}%)".format(blank, blank_percent))
         print("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
-                                                    vweak_percent))
+                                                            vweak_percent))
         print("Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
         print("Medium passwords: {0} ({1:0.2f}%)".format(medium,
                                                          medium_percent))
@@ -104,6 +106,7 @@ def __print_stats(total):
         __printMostCommonLen()
     print()
     print("------------------------------------------------------------")
+
 
 def __printTop10():
     """
@@ -130,7 +133,7 @@ def __printMostCommonLen():
         mclu_tuple = collections.Counter(len_dict).most_common(1)[0]
         # display the tuple in a format pleasing to the eye
         print("Most length usage: {0} chars ({1} times)".format(mclu_tuple[0],
-                                                              mclu_tuple[1]))
+                                                                mclu_tuple[1]))
 
 if __name__ == "__main__":
 
@@ -148,7 +151,7 @@ if __name__ == "__main__":
     parser.add_argument("-q", "--quiet", dest="quiet",
                         action="store_true", help="quiet mode")
     parser.add_argument("-s", "--separator", dest="separator",
-                        help="character that separates the accounts from " \
+                        help="character that separates the accounts from "
                         "the passwords. (Default :)")
     args = parser.parse_args()
 
@@ -168,12 +171,16 @@ if __name__ == "__main__":
     len_dict = {}
 
     if os.path.exists(target) and os.path.isfile(target):
-        f = open(target, "r", encoding="utf-8", errors="ignore")
-        print("Analysing: {0}".format(target))
-        total_pass = __parse_file(f, total_pass, type_array, pwd_dict, len_dict)
-        f.close()
+        try:
+            f = open(target, "r", encoding="utf-8", errors="ignore")
+            print("Analysing: {0}".format(target))
+            total_pass = __parse_file(
+                f, total_pass, type_array, pwd_dict, len_dict)
+            f.close()
 
-        __print_stats(total_pass)
+            __print_stats(total_pass)
+        except Exception as ex:
+            Message.print_error(ex)
     else:
         if(not os.path.exists(target)):
             Message.print_error("{0} does not exists.".format(target))
