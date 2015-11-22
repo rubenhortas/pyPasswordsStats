@@ -11,8 +11,15 @@
 from presentation.tag import Tag
 
 
-def print_error(err_msg):
-    print("{0} {1}".format(Tag.error, err_msg))
+def print_error(msg):
+    """
+    print_error(msg)
+        Prints an error message.
+    Arguments:
+        - msg: (string) Error message.
+    """
+
+    print("{0} {1}".format(Tag.error, msg))
 
 
 def print_info(msg):
