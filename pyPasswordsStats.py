@@ -11,15 +11,12 @@
 import argparse
 import os
 import signal
-import sys
 
 from application import pyPasswordStats
-from application.utils import python_utils
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
 from crosscutting import condition_messages
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
-from domain.login import Login
 from presentation.utils.clear_screen import clear_screen
 
 
@@ -41,7 +38,7 @@ if __name__ == "__main__":
                             action="store_true", help="quiet mode")
         parser.add_argument("-s", "--separator", dest="separator",
                             help="character that separates the accounts from "
-                            "the passwords. (Default :)")
+                            "the passwords_usage. (Default :)")
         args = parser.parse_args()
 
         target = args.target
@@ -52,10 +49,10 @@ if __name__ == "__main__":
         else:
             separator = ":"
 
-        total_pass = 0
-        total_types = [0, 0, 0, 0]
-        passwords = {}
-        lengths = {}
+        num_logins = 0
+        types_usage = [0, 0, 0, 0]
+        passwords_usage = {}
+        lengths_usage = {}
 
         if os.path.exists(target) and os.path.isfile(target):
             try:
@@ -63,15 +60,15 @@ if __name__ == "__main__":
                 print()
 
                 f = open(target, "r", encoding="UTF-8", errors="ignore")
-                total_pass = pyPasswordStats.parse_file(
-                    f, total_pass, total_types, passwords, lengths, separator,
-                    quiet_mode)
+                num_logins = pyPasswordStats.parse_file(
+                    f, num_logins, types_usage, passwords_usage, lengths_usage,
+                    separator, quiet_mode)
                 f.close()
 
-                if(total_pass > 0):
-                    pyPasswordStats.print_stats(total_pass, total_types)
-                    pyPasswordStats.printTop10(passwords)
-                    pyPasswordStats.printMostCommonLenghts(lengths)
+                if(num_logins > 0):
+                    pyPasswordStats.print_stats(num_logins, types_usage)
+                    pyPasswordStats.printTop10(passwords_usage)
+                    pyPasswordStats.printMostCommonLenghts(lengths_usage)
             except Exception as ex:
                 condition_messages.print_error(ex)
         else:
