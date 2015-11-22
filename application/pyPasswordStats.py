@@ -17,8 +17,22 @@ from domain.security_levels import SecurityLevel
 from .utils import dictionary_utils
 
 
-def parse_file(f, num_logins, total_types, passwords, lengths, separator,
-               quiet_mode):
+def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
+               separator, quiet_mode):
+    """
+    parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
+               separator, quiet_mode):
+        Parses a login-password file
+    Arguments:
+        - f: (file) Login-password file.
+        - num_logins: (int) Total number of logins.
+        - types_usage: (array) Counter for types usage.
+        - passwords_usage: (dictionary) Dictionary for passwords usage.
+        - legths_usage: (dictionary) Dictionary for lengths usage.
+        - separator: (char) Character delimiter for login-password.
+        - quiet_mode: (boolean) Indicates if the program is running on quiet mode.
+    """
+
     for line in f:
         info = line.split(separator)
 
@@ -35,18 +49,17 @@ def parse_file(f, num_logins, total_types, passwords, lengths, separator,
 
                 login_security = login.password_security
 
-                total_types[login_security] = total_types[login_security] + 1
+                types_usage[login_security] = types_usage[login_security] + 1
 
-                # Password usage
-                dictionary_utils.increase_key_value(passwords, login.password)
+                dictionary_utils.increase_key_value(
+                    passwords_usage, login.password)
 
-                # Length usage
                 len_pwd = len(login.password)
-                dictionary_utils.increase_key_value(lengths, len_pwd)
+                dictionary_utils.increase_key_value(lengths_usage, len_pwd)
 
             else:
-                total_types[0] = total_types[SecurityLevel.very_weak] + 1
-                dictionary_utils.increase_key_value(lengths, 0)
+                types_usage[0] = types_usage[SecurityLevel.very_weak] + 1
+                dictionary_utils.increase_key_value(lengths_usage, 0)
         else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
 
@@ -89,7 +102,7 @@ def print_stats(total, total_types):
 
 def printTop10(passwords):
     """
-    __printTop10(passwords)
+    printTop10(passwords)
         Displays Top 10 most used passwords.
 
     Arguments:
@@ -108,7 +121,7 @@ def printTop10(passwords):
 def printMostCommonLenghts(lengths):
     """
     printMostCommonLen(lengths)
-        Displays most common length usage.
+        Displays most common lengths usage.
     Arguments:
         - lengths: (dictionary) Lengths dictionary.
     """
