@@ -41,7 +41,8 @@ class Login:
 
     def print_info(self):
         """
-        Print info about password strength
+        print_info(self)
+            Prints info about password strength.
         """
 
         if self.password_security == SecurityLevel.strong:
