@@ -13,7 +13,11 @@
 
 def increase_key_value(d, key):
     """
-    Increase the value of a key in a dictionary.
+    increase_key_value(d, key)
+        Increases the value of a key in a dictionary.
+    Arguments:
+        - d: (dictionary) Dictionary.
+        - key: Key.
     """
 
     val_k = d.get(key)
