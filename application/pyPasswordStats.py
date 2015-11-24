@@ -54,8 +54,8 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                 dictionary_utils.increase_key_value(
                     passwords_usage, login.password)
 
-                len_pwd = len(login.password)
-                dictionary_utils.increase_key_value(lengths_usage, len_pwd)
+                length_password = len(login.password)
+                dictionary_utils.increase_key_value(lengths_usage, length_password)
 
             else:
                 types_usage[0] = types_usage[SecurityLevel.very_weak] + 1
@@ -112,8 +112,8 @@ def printTop10(passwords):
     if(len(passwords) > 0):
         i = 1
         print("Top 10 used passwords:")
-        l_top10 = collections.Counter(passwords).most_common(10)
-        for pair in l_top10:
+        top10 = collections.Counter(passwords).most_common(10)
+        for pair in top10:
             print("\t{0}) {1} ({2} times)".format(i, pair[0], pair[1]))
             i = i + 1
 
@@ -127,6 +127,6 @@ def printMostCommonLenghts(lengths):
     """
 
     if(len(lengths) > 0):
-        mclu_tuple = collections.Counter(lengths).most_common(1)[0]
-        print("Most length usage: {0} chars ({1} times)".format(mclu_tuple[0],
-                                                                mclu_tuple[1]))
+        most_length_usage = collections.Counter(lengths).most_common(1)[0]
+        print("Most length usage: {0} chars ({1} times)".format(most_length_usage[0],
+                                                                most_length_usage[1]))
