@@ -61,7 +61,8 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                     lengths_usage, length_password)
 
             else:
-                types_usage[0] = types_usage[SecurityLevel.very_weak] + 1
+                types_usage[SecurityLevel.very_weak] = types_usage[
+                    SecurityLevel.very_weak] + 1
                 dictionary_utils.increase_key_value(lengths_usage, 0)
         else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
