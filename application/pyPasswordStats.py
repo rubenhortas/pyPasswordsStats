@@ -82,27 +82,19 @@ def print_usage_stats(total, total_types):
     medium = total_types[SecurityLevel.medium]
     blank = total_types[SecurityLevel.strong]
 
-    if total > 0:
-        blank_percent = (blank * 100) / total
-        vweak_percent = (very_weak * 100) / total
-        weak_percent = (weak * 100) / total
-        medium_percent = (medium * 100) / total
+    blank_percent = (blank * 100) / total
+    vweak_percent = (very_weak * 100) / total
+    weak_percent = (weak * 100) / total
+    medium_percent = (medium * 100) / total
 
-    print()
+    condition_messages.print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank,
+                                                                            blank_percent))
+    condition_messages.print_info("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
+                                                                                vweak_percent))
     condition_messages.print_info(
-        "SUMMARY ----------------------------------------------------")
-    print()
-    condition_messages.print_info("Total passwords: {0}".format(total))
-    print()
-    if total > 0:
-        condition_messages.print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank,
-                                                                                blank_percent))
-        condition_messages.print_info("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
-                                                                                    vweak_percent))
-        condition_messages.print_info(
-            "Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
-        condition_messages.print_info("Medium passwords: {0} ({1:0.2f}%)".format(medium,
-                                                                                 medium_percent))
+        "Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
+    condition_messages.print_info("Medium passwords: {0} ({1:0.2f}%)".format(medium,
+                                                                             medium_percent))
     print()
 
 

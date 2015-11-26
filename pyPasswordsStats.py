@@ -71,6 +71,13 @@ if __name__ == "__main__":
                 condition_messages.print_error(ex)
 
             if num_logins > 0:
+                print()
+                condition_messages.print_info(
+                    "SUMMARY ----------------------------------------------------")
+                print()
+                condition_messages.print_info(
+                    "Total passwords: {0}".format(num_logins))
+                print()
                 print_usage_stats(num_logins, types_usage)
                 print_top10(passwords_usage)
                 print_most_common_lengths(lengths_usage)
