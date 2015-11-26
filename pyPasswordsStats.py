@@ -12,7 +12,10 @@ import argparse
 import os
 import signal
 
-from application import pyPasswordStats
+from application.pyPasswordStats import parse_file
+from application.pyPasswordStats import print_most_common_lengths
+from application.pyPasswordStats import print_top10
+from application.pyPasswordStats import print_usage_stats
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
 from crosscutting import condition_messages
@@ -54,29 +57,29 @@ if __name__ == "__main__":
         passwords_usage = {}
         lengths_usage = {}
 
+        condition_messages.print_info("Analysing: {0}".format(target))
+        print()
+
         if os.path.exists(target) and os.path.isfile(target):
             try:
-                print("Analysing: {0}".format(target))
-                print()
-
                 f = open(target, "r", encoding="UTF-8", errors="ignore")
-                num_logins = pyPasswordStats.parse_file(
-                    f, num_logins, types_usage, passwords_usage, lengths_usage,
-                    separator, quiet_mode)
+                num_logins = parse_file(f, num_logins, types_usage,
+                                        passwords_usage, lengths_usage,
+                                        separator, quiet_mode)
                 f.close()
-
-                if(num_logins > 0):
-                    pyPasswordStats.print_stats(num_logins, types_usage)
-                    pyPasswordStats.printTop10(passwords_usage)
-                    pyPasswordStats.printMostCommonLenghts(lengths_usage)
             except Exception as ex:
                 condition_messages.print_error(ex)
+
+            if num_logins > 0:
+                print_usage_stats(num_logins, types_usage)
+                print_top10(passwords_usage)
+                print_most_common_lengths(lengths_usage)
         else:
-            if(not os.path.exists(target)):
+            if not os.path.exists(target):
                 condition_messages.print_error(
                     "{0} does not exists.".format(target))
                 exit(1)
-            if(not os.path.isfile(target)):
+            if not os.path.isfile(target):
                 condition_messages.print_error(
                     "{0} is a directory.".format(target))
                 exit(1)
