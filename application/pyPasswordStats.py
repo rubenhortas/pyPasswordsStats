@@ -61,9 +61,10 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                     lengths_usage, length_password)
 
             else:
-                types_usage[SecurityLevel.very_weak] = types_usage[
-                    SecurityLevel.very_weak] + 1
-                dictionary_utils.increase_key_value(lengths_usage, 0)
+                types_usage[SecurityLevel.blank] = types_usage[
+                    SecurityLevel.blank] + 1
+                dictionary_utils.increase_key_value(
+                    lengths_usage, SecurityLevel.blank)
         else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
 
@@ -81,7 +82,7 @@ def print_usage_stats(total, total_types):
     very_weak = total_types[SecurityLevel.very_weak]
     weak = total_types[SecurityLevel.weak]
     medium = total_types[SecurityLevel.medium]
-    blank = total_types[SecurityLevel.strong]
+    blank = total_types[SecurityLevel.blank]
 
     blank_percent = (blank * 100) / total
     vweak_percent = (very_weak * 100) / total

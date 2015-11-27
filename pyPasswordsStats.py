@@ -53,7 +53,7 @@ if __name__ == "__main__":
             separator = ":"
 
         num_logins = 0
-        types_usage = [0, 0, 0, 0]
+        types_usage = [0, 0, 0, 0, 0]
         passwords_usage = {}
         lengths_usage = {}
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                     "SUMMARY ----------------------------------------------------")
                 print()
                 condition_messages.print_info(
-                    "Total passwords: {0}".format(num_logins))
+                    "Total logins: {0}".format(num_logins))
                 print()
                 print_usage_stats(num_logins, types_usage)
                 print_top10(passwords_usage)

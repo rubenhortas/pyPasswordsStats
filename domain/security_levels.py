@@ -14,7 +14,8 @@ from enum import Enum
 
 
 class SecurityLevel:
-    very_weak = 0
-    weak = 1
-    medium = 2
-    strong = 3
+    blank = 0
+    very_weak = 1
+    weak = 2
+    medium = 3
+    strong = 4
