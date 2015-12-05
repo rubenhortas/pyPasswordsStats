@@ -92,5 +92,5 @@ if __name__ == "__main__":
                 exit(1)
     else:
         condition_messages.print_error(
-            'Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
+            "Requires Python {0}".format(REQUIRED_PYTHON_VERSION))
         exit(0)
