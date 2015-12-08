@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     interpreter_version = get_interpreter_version()
 
-    if(interpreter_version == REQUIRED_PYTHON_VERSION):
+    if interpreter_version == REQUIRED_PYTHON_VERSION:
 
         clear_screen()
 
