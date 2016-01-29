@@ -19,8 +19,9 @@ from application.pyPasswordStats import print_usage_stats
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
 from crosscutting import condition_messages
+from crosscutting.constants import DEFAULT_SEPARATOR
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
-from presentation.utils.clear_screen import clear_screen
+from presentation.utils.screen import clear_screen
 
 
 if __name__ == "__main__":
@@ -50,7 +51,7 @@ if __name__ == "__main__":
         if(args.separator):
             separator = args.separator
         else:
-            separator = ":"
+            separator = DEFAULT_SEPARATOR
 
         num_logins = 0
         types_usage = [0, 0, 0, 0, 0]
