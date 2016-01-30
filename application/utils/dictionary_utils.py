@@ -20,8 +20,7 @@ def increase_key_value(d, key):
         - key: Key.
     """
 
-    val_k = d.get(key)
-    if val_k:
+    if d.get(key):
         d[key] = int(val_k) + 1
     else:
         d[key] = 1
