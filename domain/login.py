@@ -8,7 +8,7 @@
 @file:      login.py
 """
 
-from domain.security_levels import SecurityLevel
+from domain.security_level import SecurityLevel
 from presentation.tag import Tag
 
 

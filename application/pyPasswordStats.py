@@ -14,7 +14,7 @@ import collections
 
 from crosscutting import condition_messages
 from domain.login import Login
-from domain.security_levels import SecurityLevel
+from domain.security_level import SecurityLevel
 
 from .utils import dictionary_utils
 

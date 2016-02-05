@@ -35,14 +35,14 @@ if __name__ == "__main__":
         clear_screen()
 
         parser = argparse.ArgumentParser(prog="pyDictStats")
-        parser = argparse.ArgumentParser(description="Analyzes a " +
-                                         "plain text dictionary file")
+        parser = argparse.ArgumentParser(
+            description="Analyzes a plain text dictionary file for statistical analysis")
         parser.add_argument("target", help="plain text dictionary file")
         parser.add_argument("-q", "--quiet", dest="quiet",
                             action="store_true", help="quiet mode")
         parser.add_argument("-s", "--separator", dest="separator",
                             help="character that separates the accounts from "
-                            "the passwords_usage. (Default :)")
+                            "the passwords_usage. (Default ':')")
         args = parser.parse_args()
 
         target = args.target
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         passwords_usage = {}
         lengths_usage = {}
 
-        condition_messages.print_info("Analysing: {0}".format(target))
+        condition_messages.print_info("Analyzing: {0}".format(target))
         print()
 
         if os.path.exists(target) and os.path.isfile(target):
