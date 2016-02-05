@@ -18,7 +18,8 @@ from application.pyPasswordStats import print_top10
 from application.pyPasswordStats import print_usage_stats
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_error
+from crosscutting.condition_messages import print_info
 from crosscutting.constants import DEFAULT_SEPARATOR
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from presentation.utils.screen import clear_screen
@@ -58,7 +59,7 @@ if __name__ == "__main__":
         passwords_usage = {}
         lengths_usage = {}
 
-        condition_messages.print_info("Analyzing: {0}".format(target))
+        print_info("Analyzing: {0}".format(target))
         print()
 
         if os.path.exists(target) and os.path.isfile(target):
@@ -69,29 +70,25 @@ if __name__ == "__main__":
                                         separator, quiet_mode)
                 f.close()
             except Exception as ex:
-                condition_messages.print_error(ex)
+                print_error(ex)
 
             if num_logins > 0:
                 print()
-                condition_messages.print_info(
+                print_info(
                     "SUMMARY ----------------------------------------------------")
                 print()
-                condition_messages.print_info(
-                    "Total logins: {0}".format(num_logins))
+                print_info("Total logins: {0}".format(num_logins))
                 print()
                 print_usage_stats(num_logins, types_usage)
                 print_top10(passwords_usage)
                 print_most_common_lengths(lengths_usage)
         else:
             if not os.path.exists(target):
-                condition_messages.print_error(
-                    "{0} does not exists.".format(target))
+                print_error("{0} does not exists.".format(target))
                 exit(1)
             if not os.path.isfile(target):
-                condition_messages.print_error(
-                    "{0} is a directory.".format(target))
+                print_error("{0} is a directory.".format(target))
                 exit(1)
     else:
-        condition_messages.print_error(
-            "Requires Python {0}".format(REQUIRED_PYTHON_VERSION))
+        print_error("Requires Python {0}".format(REQUIRED_PYTHON_VERSION))
         exit(0)
