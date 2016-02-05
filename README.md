@@ -17,4 +17,3 @@ USAGE
       -s SEPARATOR, --separator SEPARATOR
                             character that separates the accounts from the
                             passwords_usage. (Default :)
-    ruben@blackbook:~/Workspaces/git/pyPasswordsStats$ 
