@@ -24,20 +24,24 @@ class Login:
 
         self.password_security = SecurityLevel.strong
 
-        if len(self.password) <= 14:
-            self.password_security = SecurityLevel.medium
+        if self.password:
+            if len(self.password) <= 14:
+                self.password_security = SecurityLevel.medium
 
-            if len(self.password) <= 8:
-                self.password_security = SecurityLevel.weak
+                if len(self.password) <= 8:
+                    self.password_security = SecurityLevel.weak
 
-                if self.password in self.account:
-                    self.password_security = SecurityLevel.very_weak
+                    if self.password in self.account:
+                        self.password_security = SecurityLevel.very_weak
 
-                elif self.password.isdigit():  # password is only numeric
-                    self.password_security = SecurityLevel.very_weak
+                    elif self.password.isdigit():  # password is only numeric
+                        self.password_security = SecurityLevel.very_weak
 
-                elif self.password.isalpha():  # password is only alphabetic
-                    self.password_security = SecurityLevel.very_weak
+                    # password is only alphabetic
+                    elif self.password.isalpha():
+                        self.password_security = SecurityLevel.very_weak
+        else:
+            self.password_security = SecurityLevel.blank
 
     def print_info(self):
         """
@@ -51,7 +55,9 @@ class Login:
             tag = Tag.medium
         elif self.password_security == SecurityLevel.weak:
             tag = Tag.weak
-        else:
+        elif self.password_security == SecurityLevel.very_weak:
             tag = Tag.very_weak
+        else:
+            tag = Tag.blank
 
         print(("{0} {1}/{2}").format(tag, self.account, self.password))

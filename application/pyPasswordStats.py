@@ -44,27 +44,24 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
             account = info[0].strip().lower()
             password = info[1].strip()
 
+            login = Login(account, password)
+
+            if not quiet_mode:
+                login.print_info()
+
+            login_security = login.password_security
+
+            types_usage[login_security] = types_usage[login_security] + 1
+
+            dictionary_utils.increase_key_value(
+                passwords_usage, login.password)
+
             if password != "":
-                login = Login(account, password)
-                if not quiet_mode:
-                    login.print_info()
-
-                login_security = login.password_security
-
-                types_usage[login_security] = types_usage[login_security] + 1
-
-                dictionary_utils.increase_key_value(
-                    passwords_usage, login.password)
 
                 length_password = len(login.password)
                 dictionary_utils.increase_key_value(
                     lengths_usage, length_password)
 
-            else:
-                types_usage[SecurityLevel.blank] = types_usage[
-                    SecurityLevel.blank] + 1
-                dictionary_utils.increase_key_value(
-                    lengths_usage, SecurityLevel.blank)
         else:
             Message.print_error("{0} Wrong line format.".format(line.strip()))
 
