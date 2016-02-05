@@ -10,7 +10,6 @@
 """
 
 from sys import version_info
-from crosscutting import condition_messages
 
 
 def get_interpreter_version():

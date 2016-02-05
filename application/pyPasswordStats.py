@@ -12,7 +12,8 @@
 
 import collections
 
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_error
+from crosscutting.condition_messages import print_info
 from domain.login import Login
 from domain.security_level import SecurityLevel
 
@@ -63,7 +64,7 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                     lengths_usage, length_password)
 
         else:
-            Message.print_error("{0} Wrong line format.".format(line.strip()))
+            print_error("{0} Wrong line format.".format(line.strip()))
 
     return num_logins
 
@@ -86,14 +87,13 @@ def print_usage_stats(total, total_types):
     weak_percent = (weak * 100) / total
     medium_percent = (medium * 100) / total
 
-    condition_messages.print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank,
-                                                                            blank_percent))
-    condition_messages.print_info("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak,
-                                                                                vweak_percent))
-    condition_messages.print_info(
+    print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank, blank_percent))
+    print_info(
+        "Very weak passwords: {0} ({1:0.2f}%)".format(very_weak, vweak_percent))
+    print_info(
         "Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
-    condition_messages.print_info("Medium passwords: {0} ({1:0.2f}%)".format(medium,
-                                                                             medium_percent))
+    print_info(
+        "Medium passwords: {0} ({1:0.2f}%)".format(medium, medium_percent))
     print()
 
 
@@ -108,11 +108,10 @@ def print_top10(passwords):
 
     if len(passwords) > 0:
         i = 1
-        condition_messages.print_info("Top 10 used passwords:")
+        print_info("Top 10 used passwords:")
         top10 = collections.Counter(passwords).most_common(10)
         for pair in top10:
-            condition_messages.print_info(
-                "\t{0}) {1} ({2} times)".format(i, pair[0], pair[1]))
+            print_info("\t{0}) {1} ({2} times)".format(i, pair[0], pair[1]))
             i = i + 1
 
 
@@ -127,5 +126,5 @@ def print_most_common_lengths(lengths):
     if len(lengths) > 0:
         most_length_usage = collections.Counter(lengths).most_common(1)[0]
         print()
-        condition_messages.print_info("Most length usage: {0} chars ({1} times)".format(most_length_usage[0],
-                                                                                        most_length_usage[1]))
+        print_info("Most length usage: {0} chars ({1} times)".format(most_length_usage[0],
+                                                                     most_length_usage[1]))
