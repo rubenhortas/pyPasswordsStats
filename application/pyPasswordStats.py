@@ -98,6 +98,7 @@ def print_usage_stats(total, total_types):
     print()
 
 
+# noinspection PyArgumentList
 def print_top10(passwords):
     """
     print_top_10(passwords)
