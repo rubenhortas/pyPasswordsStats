@@ -24,7 +24,6 @@ from crosscutting.constants import DEFAULT_SEPARATOR
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from presentation.utils.screen import clear_screen
 
-
 if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, exit_signal_handler)
@@ -36,14 +35,11 @@ if __name__ == "__main__":
         clear_screen()
 
         parser = argparse.ArgumentParser(prog="pyDictStats")
-        parser = argparse.ArgumentParser(
-            description="Analyzes a plain text dictionary file for statistical analysis")
+        parser = argparse.ArgumentParser(description="Analyzes a plain text dictionary file for statistical analysis")
         parser.add_argument("target", help="plain text dictionary file")
-        parser.add_argument("-q", "--quiet", dest="quiet",
-                            action="store_true", help="quiet mode")
+        parser.add_argument("-q", "--quiet", dest="quiet", action="store_true", help="quiet mode")
         parser.add_argument("-s", "--separator", dest="separator",
-                            help="character that separates the accounts from "
-                            "the passwords_usage. (Default ':')")
+                            help="character that separates the accounts from the passwords_usage. (Default ':')")
         args = parser.parse_args()
 
         target = args.target
@@ -65,9 +61,8 @@ if __name__ == "__main__":
         if os.path.exists(target) and os.path.isfile(target):
             try:
                 f = open(target, "r", encoding="UTF-8", errors="ignore")
-                num_logins = parse_file(f, num_logins, types_usage,
-                                        passwords_usage, lengths_usage,
-                                        separator, quiet_mode)
+                num_logins = parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage, separator,
+                                        quiet_mode)
                 f.close()
             except Exception as ex:
                 print_error(ex)

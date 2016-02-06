@@ -26,5 +26,4 @@ class Tag:
     strong = "{0}{1}strong{2}{3} ".format("[", Color.green, Color.end, "]")
     medium = "{0}{1}medium{2}{3} ".format("[", Color.yellow, Color.end, "]")
     weak = "{0}{1}  weak{2}{3} ".format("[", Color.red, Color.end, "]")
-    very_weak = "{0}{1}v weak{2}{3} ".format(
-        "[", Color.bold_red, Color.end, "]")
+    very_weak = "{0}{1}v weak{2}{3} ".format("[", Color.bold_red, Color.end, "]")

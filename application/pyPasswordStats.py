@@ -16,7 +16,6 @@ from crosscutting.condition_messages import print_error
 from crosscutting.condition_messages import print_info
 from domain.login import Login
 from domain.security_level import SecurityLevel
-
 from .utils import dictionary_utils
 
 
@@ -58,7 +57,6 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                 passwords_usage, login.password)
 
             if password != "":
-
                 length_password = len(login.password)
                 dictionary_utils.increase_key_value(
                     lengths_usage, length_password)
@@ -89,12 +87,9 @@ def print_usage_stats(total, total_types):
     medium_percent = (medium * 100) / total
 
     print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank, blank_percent))
-    print_info(
-        "Very weak passwords: {0} ({1:0.2f}%)".format(very_weak, vweak_percent))
-    print_info(
-        "Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
-    print_info(
-        "Medium passwords: {0} ({1:0.2f}%)".format(medium, medium_percent))
+    print_info("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak, vweak_percent))
+    print_info("Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
+    print_info("Medium passwords: {0} ({1:0.2f}%)".format(medium, medium_percent))
     print()
 
 
@@ -128,5 +123,4 @@ def print_most_common_lengths(lengths):
     if len(lengths) > 0:
         most_length_usage = collections.Counter(lengths).most_common(1)[0]
         print()
-        print_info("Most length usage: {0} chars ({1} times)".format(most_length_usage[0],
-                                                                     most_length_usage[1]))
+        print_info("Most length usage: {0} chars ({1} times)".format(most_length_usage[0], most_length_usage[1]))
