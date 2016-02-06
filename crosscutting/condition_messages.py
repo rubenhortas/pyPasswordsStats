@@ -16,7 +16,7 @@ def print_error(msg):
     print_error(msg)
         Prints an error message.
     Arguments:
-        - msg: (string) Error message.
+        msg: (string) Error message.
     """
 
     print("{0} {1}".format(Tag.error, msg))
@@ -27,7 +27,7 @@ def print_info(msg):
     print_info(msg)
         Prints an information message.
     Arguments:
-        - msg: (string) Information message.
+        msg: (string) Information message.
     """
 
     print("{0} {1}".format(Tag.info, msg))

@@ -24,6 +24,5 @@ class Color:
     bold_green = "{0}{1}".format(bold, green)
     bold_red = "{0}{1}".format(bold, red)
     bold_yellow = "{0}{1}".format(bold, yellow)
-    bold_red = "{0}{1}".format(bold, red)
 
     end = "\033[0m"

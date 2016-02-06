@@ -49,7 +49,7 @@ if __name__ == "__main__":
         target = args.target
         quiet_mode = args.quiet
 
-        if(args.separator):
+        if args.separator:
             separator = args.separator
         else:
             separator = DEFAULT_SEPARATOR

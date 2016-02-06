@@ -60,4 +60,4 @@ class Login:
         else:
             tag = Tag.blank
 
-        print(("{0} {1}/{2}").format(tag, self.account, self.password))
+        print("{0} {1}/{2}".format(tag, self.account, self.password))

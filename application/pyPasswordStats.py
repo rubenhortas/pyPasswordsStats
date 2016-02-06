@@ -27,13 +27,13 @@ def parse_file(f, num_logins, types_usage, passwords_usage, lengths_usage,
                separator, quiet_mode):
         Parses a login-password file
     Arguments:
-        - f: (file) Login-password file.
-        - num_logins: (int) Total number of logins.
-        - types_usage: (array) Counter for types usage.
-        - passwords_usage: (dictionary) Dictionary for passwords usage.
-        - legths_usage: (dictionary) Dictionary for lengths usage.
-        - separator: (char) Character delimiter for login-password.
-        - quiet_mode: (boolean) Indicates if the program is running on quiet mode.
+        f: (file) Login-password file.
+        num_logins: (int) Total number of logins.
+        types_usage: (array) Counter for types usage.
+        passwords_usage: (dictionary) Dictionary for passwords usage.
+        lengths_usage: (dictionary) Dictionary for lengths usage.
+        separator: (char) Character delimiter for login-password.
+        quiet_mode: (boolean) Indicates if the program is running on quiet mode.
     """
 
     for line in f:
@@ -74,7 +74,8 @@ def print_usage_stats(total, total_types):
     print_usage_stats(total)
         Prints the results of the statistical analysis.
     Arguments:
-        - total: (int) total of parsed lines.
+        total: (int) total of parsed lines.
+        total_types: (int) total of types.
     """
 
     very_weak = total_types[SecurityLevel.very_weak]
@@ -103,7 +104,7 @@ def print_top10(passwords):
         Displays Top 10 most used passwords.
 
     Arguments:
-        - passwords: (dictionary) Password dictionary.
+        passwords: (dictionary) Password dictionary.
     """
 
     if len(passwords) > 0:
@@ -120,7 +121,7 @@ def print_most_common_lengths(lengths):
     printMostCommonLen(lengths)
         Displays most common lengths usage.
     Arguments:
-        - lengths: (dictionary) Lengths dictionary.
+        lengths: (dictionary) Lengths dictionary.
     """
 
     if len(lengths) > 0:

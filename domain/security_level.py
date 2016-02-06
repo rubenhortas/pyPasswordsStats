@@ -11,7 +11,7 @@
 """
 
 
-class SecurityLevel():
+class SecurityLevel:
     blank = 0
     very_weak = 1
     weak = 2
