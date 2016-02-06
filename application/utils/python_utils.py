@@ -24,10 +24,10 @@ def get_interpreter_version():
 def exit_signal_handler(signal, frame):
     """"
     exit_signal_handler(signal, frame)
-        Hadles an exit signal.
+        Handles an exit signal.
     Arguments:
-        - signal: (int) number of signal.
-        - frame: (string) name of the signal handler.
+        signal: (int) number of signal.
+        frame: (string) name of the signal handler.
     """
 
     exit(0)
