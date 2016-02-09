@@ -62,9 +62,10 @@ if __name__ == "__main__":
         else:
             if not os.path.exists(target):
                 print_error("{0} does not exists.".format(target))
+                exit(1)
             if not os.path.isfile(target):
                 print_error("{0} is a directory.".format(target))
-            exit(1)
+                exit(1)
     else:
         print_error("Requires Python {0}".format(REQUIRED_PYTHON_VERSION))
         exit(0)
