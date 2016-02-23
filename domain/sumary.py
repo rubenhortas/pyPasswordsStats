@@ -100,5 +100,4 @@ class Sumary:
 
         if len(lengths) > 0:
             most_length_usage = collections.Counter(self.lengths_usage).most_common(1)[0]
-            print()
-            print_info("Most length usage: {0} chars ({1} times)".format(most_length_usage[0], most_length_usage[1]))
+            print_info("\nMost length usage: {0} chars ({1} times)".format(most_length_usage[0], most_length_usage[1]))
