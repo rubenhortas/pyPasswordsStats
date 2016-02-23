@@ -40,11 +40,8 @@ class Sumary:
 
     def print_stats(self):
         if self.num_logins > 0:
-            print()
-            print_info("SUMMARY ----------------------------------------------------")
-            print()
-            print_info("Total logins: {0}".format(self.num_logins))
-            print()
+            print_info("\nSUMMARY ----------------------------------------------------\n")
+            print_info("Total logins: {0}\n".format(self.num_logins))
             self.print_usage_stats(self.num_logins, self.types_usage)
             self.print_top10(self.passwords_usage)
             self.print_most_common_lengths(self.lengths_usage)
@@ -72,8 +69,7 @@ class Sumary:
         print_info("Blank passwords: {0} ({1:0.2f}%)".format(blank, blank_percent))
         print_info("Very weak passwords: {0} ({1:0.2f}%)".format(very_weak, vweak_percent))
         print_info("Weak passwords: {0} ({1:0.2f}%)".format(weak, weak_percent))
-        print_info("Medium passwords: {0} ({1:0.2f}%)".format(medium, medium_percent))
-        print()
+        print_info("Medium passwords: {0} ({1:0.2f}%)\n".format(medium, medium_percent))
 
     # noinspection PyArgumentList
     def print_top10(self, passwords):
